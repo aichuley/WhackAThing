@@ -6,6 +6,10 @@
         <entry key="..\:/Users/ashsu/Documents/School/Kotlin/WhackAThing/app/src/main/res/layout/activity_game.xml" value="0.176" />
         <entry key="..\:/Users/ashsu/Documents/School/Kotlin/WhackAThing/app/src/main/res/layout/activity_main.xml" value="0.182129115006413" />
         <entry key="..\:/Users/ashsu/Documents/School/Kotlin/WhackAThing/app/src/main/res/layout/activity_selectimage.xml" value="0.22826086956521738" />
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_game.xml" value="0.1725097656250001" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.18070652173913043" />
       </map>
     </option>
   </component>
