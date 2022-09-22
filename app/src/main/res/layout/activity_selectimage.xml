@@ -43,6 +43,19 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <ImageView
+        android:id="@+id/colorSquare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/nameImage"
+        app:layout_constraintBottom_toTopOf="@id/pickImageText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:importantForAccessibility="no"
+        android:background="@drawable/rectangle_white"/>
+
     <TextView
         android:id="@+id/pickImageText"
         android:layout_width="wrap_content"
@@ -99,6 +112,5 @@
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/backgroundColor"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
