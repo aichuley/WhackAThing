@@ -1,128 +1,105 @@
 package com.example.whackathing
 
 import android.content.Intent
-import android.media.Image
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
-import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.res.ResourcesCompat
 
 
-class Mol(val mole: ImageView) {
+private var boardList = mutableListOf<Mol>()
 
-   var timer =  object : CountDownTimer(3000, 1000) {
+class Mol(private val mole: ImageView) {
 
-        override fun onTick(millisUntilFinished: Long) {
-            //mTextField.setText("seconds remaining: " + millisUntilFinished / 1000)
-        }
+    var isVisible = false
+
+    private var timer = object : CountDownTimer(2000, 1000) {
+
+        override fun onTick(millisUntilFinished: Long) {}
 
         override fun onFinish() {
-            //mTextField.setText("done!")
-            mole!!.setImageResource(0)
+            mole.setImageResource(0)
+            var boardMole = boardList.getOrNull(generateRandom())
+            while (boardMole == null || boardMole.isVisible)
+                boardMole = boardList.getOrNull(generateRandom())
+            boardMole.setMole()
         }
-    }.start()
-
-    fun getImage() : ImageView {
-        return mole
     }
 
     fun setMole() {
-        mole!!.setImageResource(R.drawable.mol)
-        mole!!.setOnClickListener {
-            mole!!.setImageResource(0)
+        isVisible = true
+        if (Resources.moleDrawable == null)
+            mole.setImageResource(R.drawable.mol)
+        else
+            mole.setImageDrawable(Resources.moleDrawable)
+        timer.start()
+        mole.setOnClickListener {
+            mole.setImageResource(0)
+            timer.cancel()
+            var boardMole = boardList.getOrNull(generateRandom())
+            while (boardMole == null || boardMole.isVisible || boardMole == this)
+                boardMole = boardList.getOrNull(generateRandom())
+            boardMole.setMole()
+            isVisible = false
         }
     }
 
 }
+fun generateRandom(): Int {
+    return (0..9).random()
+}
 
+class GameActivity : AppCompatActivity() {
 
-class GameActivity: AppCompatActivity() {
-
-    private var boardList = mutableListOf<Mol>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
         initBoard()
+
+        val boardMole = boardList.getOrNull(generateRandom())
+        if (boardMole != null && !boardMole.isVisible)
+            boardMole.setMole()
     }
 
 
     private fun initBoard() {
 
-        boardList.add(0,Mol(findViewById<ImageView>(R.id.a1)))
-        boardList.add(1,Mol(findViewById<ImageView>(R.id.a2)))
-        boardList.add(2,Mol(findViewById<ImageView>(R.id.a3)))
-        boardList.add(3,Mol(findViewById<ImageView>(R.id.b1)))
-        boardList.add(4,Mol(findViewById<ImageView>(R.id.b2)))
-        boardList.add(5,Mol(findViewById<ImageView>(R.id.b3)))
-        boardList.add(6,Mol(findViewById<ImageView>(R.id.c1)))
-        boardList.add(7,Mol(findViewById<ImageView>(R.id.c2)))
-        boardList.add(8,Mol(findViewById<ImageView>(R.id.c3)))
-
-//        val boardMole = boardList.getOrNull(generateRandom())
-//        boardMole!!.setMole()
-
-//        var timer =  object : CountDownTimer(2000, 1000) {
-//
-//            override fun onTick(millisUntilFinished: Long) {
-//                //mTextField.setText("seconds remaining: " + millisUntilFinished / 1000)
-//            }
-//
-//            override fun onFinish() {
-//                //mTextField.setText("done!")
-//                //!!.setImageResource(0)
-////                val boardMole = boardList.getOrNull(generateRandom())
-////
-////                boardMole!!.setMole()
-//
-//            }
-//        }.start()
-
-//        for(i in 1..3) {
-//
-//            val boardMole = boardList.getOrNull(generateRandom())
-//            boardMole!!.setMole()
-//
-//        }
-
-        while(true) {
-            val boardMole = boardList.getOrNull(generateRandom())
-            boardMole!!.setMole()
+        with(boardList) {
+            add(0, Mol(findViewById(R.id.a1)))
+            add(1, Mol(findViewById(R.id.a2)))
+            add(2, Mol(findViewById(R.id.a3)))
+            add(3, Mol(findViewById(R.id.b1)))
+            add(4, Mol(findViewById(R.id.b2)))
+            add(5, Mol(findViewById(R.id.b3)))
+            add(6, Mol(findViewById(R.id.c1)))
+            add(7, Mol(findViewById(R.id.c2)))
+            add(8, Mol(findViewById(R.id.c3)))
         }
+
 
         //add score, if they fail to bit 3 mol break out of the loop
 
-
-
-//        currImg!!.setImageResource(R.drawable.mol)
-//        currImg!!.setOnClickListener {
-//            currImg!!.setImageResource(0)
-//        }
-
     }
 
-    fun generateRandom(): Int{
-        return (0..9).random()
-    }
 
-    fun goToHome(view: View){
+
+    fun goToHome(view: View) {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
 
-    fun boardTapped(view: View){
-        if(view !is Button)
-            return
-        removeToBoard(view)
-    }
+//    fun boardTapped(view: View){
+//        if(view !is Button)
+//            return
+//        removeToBoard(view)
+//    }
 
-    private fun removeToBoard(button: Button) {
-
-        if(button.text != "")
-            return
-
-    }
+//    private fun removeToBoard(button: Button) {
+//
+//        if(button.text != "")
+//            return
+//
+//    }
 }

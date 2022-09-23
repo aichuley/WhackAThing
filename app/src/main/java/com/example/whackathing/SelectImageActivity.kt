@@ -2,14 +2,13 @@ package com.example.whackathing
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.drawable.Drawable
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.RadioButton
-import android.widget.RadioGroup
+import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 
 
@@ -19,6 +18,7 @@ class SelectImageActivity : AppCompatActivity(){
     private lateinit var previewImage: ImageView
     private lateinit var colorSquare: ImageView
     private lateinit var backgroundColor: RadioGroup
+    private lateinit var newImage: Uri
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +44,6 @@ class SelectImageActivity : AppCompatActivity(){
             colorSquare.setImageResource(newColor)
         }
 
-
     }
 
     private var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -52,10 +51,16 @@ class SelectImageActivity : AppCompatActivity(){
             if(result.resultCode == Activity.RESULT_OK) {
                 val data: Intent? = result.data
                 previewImage.setImageURI(data?.data)
+                newImage = data?.data!!
             }
     }
 
     fun sendDataHome(view: View){
+        if(newImage != null) {
+            val inputStream = this.contentResolver.openInputStream(newImage)
+            val newDrawable = Drawable.createFromStream(inputStream, newImage.toString())
+            Resources.moleDrawable = newDrawable
+        }
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
