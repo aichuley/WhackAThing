@@ -10,20 +10,22 @@ import androidx.appcompat.app.AppCompatActivity
 
 private var boardList = mutableListOf<Mol>()
 
-class Mol(private val mole: ImageView) {
+class Mol(val mole: ImageView) {
 
     var isVisible = false
 
-    private var timer = object : CountDownTimer(2000, 1000) {
+    private var timer = object : CountDownTimer(1500, 1000) {
 
         override fun onTick(millisUntilFinished: Long) {}
 
         override fun onFinish() {
             mole.setImageResource(0)
+            isVisible = false
             var boardMole = boardList.getOrNull(generateRandom())
-            while (boardMole == null || boardMole.isVisible)
+            while ((boardMole == null) || boardMole.isVisible)
                 boardMole = boardList.getOrNull(generateRandom())
             boardMole.setMole()
+            mole.setOnClickListener{}
         }
     }
 
@@ -36,16 +38,18 @@ class Mol(private val mole: ImageView) {
         timer.start()
         mole.setOnClickListener {
             mole.setImageResource(0)
+            isVisible = false
             timer.cancel()
             var boardMole = boardList.getOrNull(generateRandom())
             while (boardMole == null || boardMole.isVisible || boardMole == this)
                 boardMole = boardList.getOrNull(generateRandom())
             boardMole.setMole()
-            isVisible = false
+            mole.setOnClickListener{}
         }
     }
 
 }
+
 fun generateRandom(): Int {
     return (0..9).random()
 }
@@ -78,28 +82,15 @@ class GameActivity : AppCompatActivity() {
             add(8, Mol(findViewById(R.id.c3)))
         }
 
-
-        //add score, if they fail to bit 3 mol break out of the loop
-
+        val it = boardList.iterator()
+        while(it.hasNext()){
+            val mole = it.next()
+            mole.mole.setOnClickListener{}
+        }
     }
-
-
 
     fun goToHome(view: View) {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
-
-//    fun boardTapped(view: View){
-//        if(view !is Button)
-//            return
-//        removeToBoard(view)
-//    }
-
-//    private fun removeToBoard(button: Button) {
-//
-//        if(button.text != "")
-//            return
-//
-//    }
 }

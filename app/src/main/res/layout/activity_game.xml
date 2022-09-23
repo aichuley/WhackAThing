@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -33,20 +32,23 @@
 
             <ImageView
                 android:id="@+id/a1"
-                style="@style/column" />
+                style="@style/column"
+                android:importantForAccessibility="no"/>
 
             <View
                 style="@style/verticalLine"/>
 
             <ImageView
                 android:id="@+id/a2"
-                style="@style/column" />
+                style="@style/column"
+                android:importantForAccessibility="no"/>
             <View
                 style="@style/verticalLine"/>
 
             <ImageView
                 android:id="@+id/a3"
-                style="@style/column" />
+                style="@style/column"
+                android:importantForAccessibility="no" />
 
         </LinearLayout>
 
@@ -58,18 +60,21 @@
 
             <ImageView
                 android:id="@+id/b1"
-                style="@style/column"/>
+                style="@style/column"
+                android:importantForAccessibility="no"/>
 
             <View
                 style="@style/verticalLine"/>
             <ImageView
                 android:id="@+id/b2"
-                style="@style/column"/>
+                style="@style/column"
+                android:importantForAccessibility="no"/>
             <View
                 style="@style/verticalLine"/>
             <ImageView
                 android:id="@+id/b3"
-                style="@style/column"/>
+                style="@style/column"
+                android:importantForAccessibility="no"/>
 
         </LinearLayout>
 
@@ -80,17 +85,20 @@
             style="@style/row">
             <ImageView
                 android:id="@+id/c1"
-                style="@style/column"/>
+                style="@style/column"
+                android:importantForAccessibility="no"/>
             <View
                 style="@style/verticalLine"/>
             <ImageView
                 android:id="@+id/c2"
-                style="@style/column"/>
+                style="@style/column"
+                android:importantForAccessibility="no"/>
             <View
                 style="@style/verticalLine"/>
             <ImageView
                 android:id="@+id/c3"
-                style="@style/column"/>
+                style="@style/column"
+                android:importantForAccessibility="no"/>
         </LinearLayout>
 
     </LinearLayout>
